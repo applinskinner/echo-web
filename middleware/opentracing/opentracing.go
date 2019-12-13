@@ -13,6 +13,7 @@ import (
 	"github.com/uber/jaeger-client-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
 	"github.com/uber/jaeger-lib/metrics"
+	"github.com/uber/jaeger-lib/metrics/metricstest"
 	"go.elastic.co/apm"
 	"go.elastic.co/apm/module/apmot"
 	"sourcegraph.com/sourcegraph/appdash"
@@ -75,7 +76,7 @@ func initGlobalTracer_Jaeger(serviceName, addr string) io.Closer {
 	jLogger := &jaegerLogger{}
 	jMetricsFactory := metrics.NullFactory
 
-	metricsFactory := metrics.NewLocalFactory(0)
+	metricsFactory := metricstest.NewFactory(0)
 	metrics := jaeger.NewMetrics(metricsFactory, nil)
 
 	sender, err := jaeger.NewUDPTransport(addr, 0)

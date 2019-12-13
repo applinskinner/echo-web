@@ -89,8 +89,8 @@ func (m *Metrics) Graphite(freq time.Duration, prefix string, addr *net.TCPAddr)
 //
 // 	m.InfluxDB(10e9, "http://127.0.0.1:8086","metrics", "test","test"})
 //
-func (m *Metrics) InfluxDB(freq time.Duration, url, database, username, password string) {
-	go influxdb.InfluxDB(m.opts.Registry, freq, url, database, username, password)
+func (m *Metrics) InfluxDB(freq time.Duration, url, database, measurement, username, password string, align bool) {
+	go influxdb.InfluxDB(m.opts.Registry, freq, url, database, measurement, username, password, align)
 }
 
 // InfluxDBWithTags reports metrics into influxdb with tags.
@@ -98,6 +98,6 @@ func (m *Metrics) InfluxDB(freq time.Duration, url, database, username, password
 //
 // 	m.InfluxDBWithTags(10e9, "http://127.0.0.1:8086","metrics", "test","test", map[string]string{"host":"127.0.0.1"})
 //
-func (m *Metrics) InfluxDBWithTags(freq time.Duration, url, database, username, password string, tags map[string]string) {
-	go influxdb.InfluxDBWithTags(m.opts.Registry, freq, url, database, username, password, tags)
+func (m *Metrics) InfluxDBWithTags(freq time.Duration, url, database, measurement, username, password string, tags map[string]string, align bool) {
+	go influxdb.InfluxDBWithTags(m.opts.Registry, freq, url, database, measurement, username, password, tags, align)
 }
